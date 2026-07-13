@@ -1,1 +1,80 @@
+<svg viewBox="0 0 1000 620" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#555" />
+    </marker>
+  </defs>
 
+  <rect width="1000" height="620" fill="#ffffff"/>
+
+  <text x="500" y="40" text-anchor="middle" font-size="24" font-weight="bold" fill="#1a1a2e">Cloud SLA Monitoring &amp; Auto-Scaling Architecture</text>
+  <text x="500" y="65" text-anchor="middle" font-size="14" fill="#666">AWS EC2 | Elastic Load Balancer | Auto Scaling Group | CloudWatch</text>
+
+  <!-- JMeter Client -->
+  <rect x="40" y="140" width="150" height="90" rx="8" fill="#232f3e" stroke="#232f3e"/>
+  <text x="115" y="178" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">JMeter</text>
+  <text x="115" y="198" text-anchor="middle" font-size="12" fill="#ffd764">Load Generator</text>
+  <text x="115" y="215" text-anchor="middle" font-size="11" fill="#cccccc">500 threads</text>
+
+  <!-- Arrow to LB -->
+  <line x1="190" y1="185" x2="290" y2="185" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="235" y="175" text-anchor="middle" font-size="11" fill="#555">HTTP</text>
+
+  <!-- Load Balancer -->
+  <rect x="300" y="140" width="170" height="90" rx="8" fill="#ff9900" stroke="#ff9900"/>
+  <text x="385" y="172" text-anchor="middle" font-size="14" font-weight="bold" fill="#232f3e">Elastic Load</text>
+  <text x="385" y="190" text-anchor="middle" font-size="14" font-weight="bold" fill="#232f3e">Balancer (ALB)</text>
+  <text x="385" y="210" text-anchor="middle" font-size="11" fill="#232f3e">SLA-LB</text>
+
+  <!-- Arrow to Target Group -->
+  <line x1="470" y1="185" x2="570" y2="185" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Target Group -->
+  <rect x="580" y="140" width="170" height="90" rx="8" fill="#146eb4" stroke="#146eb4"/>
+  <text x="665" y="178" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">Target Group</text>
+  <text x="665" y="198" text-anchor="middle" font-size="11" fill="#dceeff">sla-monitor-demo</text>
+  <text x="665" y="214" text-anchor="middle" font-size="11" fill="#dceeff">Port 5000 / HTTP</text>
+
+  <!-- Arrow down to ASG -->
+  <line x1="665" y1="230" x2="665" y2="290" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Auto Scaling Group box -->
+  <rect x="480" y="300" width="380" height="180" rx="8" fill="#f5f7fa" stroke="#ff9900" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="670" y="325" text-anchor="middle" font-size="14" font-weight="bold" fill="#232f3e">Auto Scaling Group (SLA-ASG)</text>
+  <text x="670" y="342" text-anchor="middle" font-size="11" fill="#555">Min: 1  |  Desired: 1  |  Max: 3</text>
+
+  <!-- EC2 instances -->
+  <rect x="510" y="360" width="140" height="90" rx="8" fill="#232f3e"/>
+  <text x="580" y="392" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">EC2 Instance</text>
+  <text x="580" y="410" text-anchor="middle" font-size="11" fill="#ffd764">t3.micro</text>
+  <text x="580" y="426" text-anchor="middle" font-size="10" fill="#cccccc">AZ: ap-south-1a</text>
+
+  <rect x="670" y="360" width="140" height="90" rx="8" fill="#232f3e"/>
+  <text x="740" y="392" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">EC2 Instance</text>
+  <text x="740" y="410" text-anchor="middle" font-size="11" fill="#ffd764">t3.micro</text>
+  <text x="740" y="426" text-anchor="middle" font-size="10" fill="#cccccc">AZ: ap-south-1b</text>
+
+  <!-- Arrow from ASG box down to CloudWatch -->
+  <line x1="670" y1="480" x2="670" y2="530" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- CloudWatch -->
+  <rect x="540" y="535" width="260" height="70" rx="8" fill="#7b4bde" stroke="#7b4bde"/>
+  <text x="670" y="562" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">Amazon CloudWatch</text>
+  <text x="670" y="580" text-anchor="middle" font-size="11" fill="#e6dcff">Alarm: CPUUtilization &gt; 70%</text>
+  <text x="670" y="595" text-anchor="middle" font-size="10" fill="#e6dcff">Triggers scale-out / scale-in</text>
+
+  <!-- Feedback arrow from CloudWatch to ASG (scaling trigger) -->
+  <path d="M540,570 C420,570 420,390 500,390" fill="none" stroke="#7b4bde" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+  <text x="400" y="480" text-anchor="middle" font-size="11" fill="#7b4bde" transform="rotate(-90 400 480)">Scaling Signal</text>
+
+  <!-- Legend -->
+  <rect x="40" y="300" width="380" height="180" rx="8" fill="#f5f7fa" stroke="#ddd"/>
+  <text x="60" y="325" font-size="13" font-weight="bold" fill="#1a1a2e">How it works</text>
+  <text x="60" y="350" font-size="11.5" fill="#333">1. JMeter simulates concurrent user traffic</text>
+  <text x="60" y="372" font-size="11.5" fill="#333">2. ALB distributes requests across instances</text>
+  <text x="60" y="394" font-size="11.5" fill="#333">3. CloudWatch monitors CPU utilization</text>
+  <text x="60" y="416" font-size="11.5" fill="#333">4. Alarm fires when CPU &gt; 70% for 1 min</text>
+  <text x="60" y="438" font-size="11.5" fill="#333">5. Auto Scaling Group launches new EC2</text>
+  <text x="60" y="460" font-size="11.5" fill="#333">   instances to handle the load (max 3)</text>
+
+</svg>
